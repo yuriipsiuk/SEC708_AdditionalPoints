@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CISO vs Business: Симулятор</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CISO vs Business: Межа компромісу</h1>
+            <p>Симулятор управлінських рішень з інформаційної безпеки</p>
+        </header>
+
+        <!-- Екран 1: Налаштування -->
+        <section id="setup-phase" class="phase active">
+            <h2>Налаштування гри</h2>
+            <div class="input-group">
+                <label for="player-count">Кількість гравців (від 3 до 5):</label>
+                <input type="number" id="player-count" min="3" max="5" value="3">
+            </div>
+            <button id="generate-btn">Згенерувати кейс</button>
+            <p id="setup-error" class="error hidden">Введіть коректну кількість гравців (3-5).</p>
+        </section>
+
+        <!-- Екран 2: Симуляція (Обговорення) -->
+        <section id="simulation-phase" class="phase">
+            <h2 id="case-title">Назва кейсу</h2>
+            <div class="case-description">
+                <p id="case-text">Опис ситуації...</p>
+            </div>
+            
+            <div class="timer-container">
+                <h3 id="timer-title">Час на обговорення:</h3>
+                <div id="timer-display">12:00</div>
+                <div class="timer-controls">
+                    <button id="start-timer-btn">Почати таймер</button>
+                    <button id="skip-timer-btn" class="secondary">Пропустити таймер (Debug)</button>
+                </div>
+            </div>
+
+            <h3>Ролі гравців:</h3>
+            <p class="instruction">Кожен гравець відстоює свої цілі. Заборонено показувати свій екран іншим — аргументуйте словами!</p>
+            <div id="roles-container" class="roles-grid">
+                <!-- Картки ролей -->
+            </div>
+        </section>
+
+        <!-- Екран 3: Оцінювання -->
+        <section id="evaluation-phase" class="phase">
+            <h2>Фіксація рішень (Робота Фасилітатора)</h2>
+            <p class="instruction">Фасилітатор або команда спільно відмічає <b>тільки ті дії</b>, про які команда реально домовилася в результаті компромісу.</p>
+            
+            <form id="evaluation-form">
+                <div id="evaluation-container">
+                    <!-- Форма оцінювання -->
+                </div>
+                <button type="button" id="calculate-btn">Оцінити роботу команди</button>
+            </form>
+        </section>
+
+        <!-- Екран 4: Результат -->
+        <section id="result-phase" class="phase">
+            <h2>Підсумок симуляції</h2>
+            <div id="final-score-display" class="score-card">
+                <!-- Результат -->
+            </div>
+            
+            <div class="debrief-card">
+                <h3>💡 Best Practices (Як треба було діяти):</h3>
+                <ul id="debrief-list">
+                    <!-- Розбір -->
+                </ul>
+            </div>
+
+            <button id="restart-btn">Почати нову гру</button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
