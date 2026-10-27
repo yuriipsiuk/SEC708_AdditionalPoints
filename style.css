@@ -1,198 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap');
+
 :root {
-    --primary: #2c3e50;
-    --secondary: #34495e;
-    --accent: #3498db;
-    --danger: #e74c3c;
-    --success: #2ecc71;
-    --light: #ecf0f1;
-    --dark: #2c3e50;
-    --bg: #f9f9f9;
+    --bg-color: #0d0f12;
+    --panel-bg: #14181d;
+    --neon-green: #00ff66;
+    --neon-cyan: #00e5ff;
+    --neon-red: #ff0055;
+    --neon-yellow: #ffcc00;
+    --text-main: #c0c8d0;
+    --border-color: #1e2630;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
-    color: var(--dark);
+    font-family: 'Fira Code', monospace;
+    background-color: var(--bg-color);
+    color: var(--text-main);
     line-height: 1.6;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.05) 0%, transparent 60%),
+        linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+    min-height: 100vh;
+}
+
+/* Ефект сканування старого монітора */
+.scanline {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    z-index: 99;
+    pointer-events: none;
+    opacity: 0.6;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 950px;
     margin: 2rem auto;
     padding: 2rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: var(--panel-bg);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.15), inset 0 0 15px rgba(0, 229, 255, 0.05);
 }
 
 header {
     text-align: center;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid var(--light);
+    border-bottom: 1px dashed var(--neon-cyan);
 }
 
-h1 { color: var(--primary); }
-h2 { color: var(--secondary); margin-bottom: 1rem; }
-h3 { margin: 1rem 0; color: var(--primary); }
+.terminal-header {
+    color: var(--neon-cyan);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+h1 {
+    color: var(--neon-green);
+    font-size: 1.8rem;
+    text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6c7a89;
+    font-size: 0.9rem;
+}
+
+h2 {
+    color: var(--neon-cyan);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
+}
+
+h3 {
+    color: var(--neon-green);
+    margin: 1.5rem 0 0.8rem 0;
+}
 
 .phase { display: none; }
-.phase.active { display: block; animation: fadeIn 0.5s; }
+.phase.active { display: block; animation: terminalFade 0.3s ease-in-out; }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes terminalFade {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
+/* Кнопки */
 button {
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    padding: 10px 20px;
+    font-family: 'Fira Code', monospace;
+    background-color: transparent;
+    color: var(--neon-green);
+    border: 1px solid var(--neon-green);
+    padding: 12px 24px;
     font-size: 1rem;
-    border-radius: 5px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);
 }
 
-button:hover { background-color: #2980b9; }
-button.secondary { background-color: #95a5a6; }
-button.secondary:hover { background-color: #7f8c8d; }
-
-.input-group { margin-bottom: 1.5rem; }
-.input-group input { padding: 8px; font-size: 1rem; width: 80px; }
-.hidden { display: none !important; }
-.error { color: var(--danger); margin-top: 10px; }
-
-/* Картки кейсу та ролей */
-.case-description {
-    background: var(--light);
-    padding: 1.5rem;
-    border-left: 5px solid var(--accent);
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
+button:hover {
+    background-color: var(--neon-green);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
 }
 
-.roles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+button.secondary {
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
 }
 
-.role-card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+button.secondary:hover {
+    background-color: var(--neon-cyan);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
 }
 
-.role-card h4 { color: var(--accent); border-bottom: 1px solid #eee; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-.goals-list { color: var(--success); margin-bottom: 1rem; padding-left: 1.2rem; }
-.redlines-list { color: var(--danger); padding-left: 1.2rem; }
-
-/* Таймер */
-.timer-container {
-    text-align: center;
-    background: var(--dark);
-    color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin: 2rem 0;
-}
-#timer-display { font-size: 3rem; font-weight: bold; font-family: monospace; margin: 1rem 0; }
-.timer-controls { display: flex; justify-content: center; gap: 1rem; }
-
-/* Форма оцінювання */
-.eval-player-section {
-    background: var(--light);
-    padding: 1.5rem;
+.input-group {
     margin-bottom: 1.5rem;
-    border-radius: 8px;
 }
-.eval-group { margin-bottom: 1rem; }
-.eval-group h4 { margin-bottom: 0.5rem; }
-.checkbox-item {
-    display: flex;
-    align-items: center;
+
+.input-group label {
+    display: block;
     margin-bottom: 0.5rem;
 }
-.checkbox-item input { margin-right: 10px; width: 18px; height: 18px; }
-.goal-text { color: #27ae60; font-weight: 500; }
-.redline-text { color: #c0392b; font-weight: 500; }
 
-/* Результати */
-.score-card { text-align: center; padding: 2rem; background: var(--light); border-radius: 8px; margin-bottom: 2rem; }
-.score-card h3 { font-size: 2rem; margin-bottom: 1rem; }
-.verdict-success { color: var(--success); }
-.verdict-neutral { color: #f39c12; }
-.verdict-fail { color: var(--danger); }
+.input-group input {
+    font-family: 'Fira Code', monospace;
+    background: #090b0d;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 8px 12px;
+    font-size: 1.1rem;
+    width: 90px;
+    outline: none;
+}
 
+.hidden { display: none !important; }
+.error { color: var(--neon-red); margin-top: 10px; font-weight: bold; }
 
+/* Картки кейсу та інструкції */
+.case-description {
+    background: #090b0d;
+    padding: 1.5rem;
+    border-left: 3px solid var(--neon-cyan);
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+    white-space: pre-line;
+}
 
 .instruction {
-    background: #e8f4f8;
-    padding: 10px;
-    border-left: 4px solid var(--accent);
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-}
-
-.debrief-card {
-    background: #eafaf1;
-    border: 1px solid #2ecc71;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    text-align: left;
-}
-
-.debrief-card h3 {
-    color: #27ae60;
+    color: var(--neon-yellow);
+    font-size: 0.85rem;
     margin-bottom: 1rem;
-    margin-top: 0;
 }
 
-.debrief-card ul {
-    padding-left: 1.5rem;
+/* Згорнуті картки (Асиметрія інформації) */
+.roles-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.debrief-card li {
-    margin-bottom: 0.5rem;
-}
-
-/* Стилі для карток-акордеонів (details/summary) */
 details.role-card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background: #090b0d;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 1rem;
+    transition: border-color 0.2s;
+}
+
+details.role-card[open] {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.1);
 }
 
 details.role-card summary {
     cursor: pointer;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--accent);
+    font-weight: 700;
+    color: var(--neon-cyan);
     outline: none;
-    list-style: none; /* Забирає стандартний трикутник в деяких браузерах */
+    user-select: none;
 }
 
-/* Кастомний трикутничок біля імені ролі */
-details.role-card summary::before {
-    content: '▶';
-    display: inline-block;
+details.role-card summary:hover {
+    color: var(--neon-green);
+}
+
+.role-content {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-color);
+}
+
+.goals-list { color: var(--neon-green); padding-left: 1.2rem; margin-top: 0.5rem; }
+.redlines-list { color: var(--neon-red); padding-left: 1.2rem; margin-top: 0.5rem; }
+
+/* Таймер */
+.timer-container {
+    text-align: center;
+    background: #090b0d;
+    border: 1px solid var(--neon-green);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);
+}
+
+#timer-display {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+    margin: 0.5rem 0;
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Форма оцінювання */
+.eval-player-section {
+    background: #090b0d;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--border-color);
+}
+
+.eval-player-section h3 {
+    color: var(--neon-cyan);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.eval-group { margin-bottom: 1rem; }
+.eval-group h4 { color: #8a9ba8; margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+.checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+}
+
+.checkbox-item input {
     margin-right: 10px;
-    font-size: 0.9em;
-    transition: transform 0.2s ease-in-out;
+    margin-top: 4px;
+    accent-color: var(--neon-green);
+    width: 16px; height: 16px;
 }
 
-details.role-card[open] summary::before {
-    transform: rotate(90deg);
+.goal-text span { color: var(--neon-green); }
+.redline-text span { color: var(--neon-red); }
+
+/* Результати */
+.score-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: #090b0d;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
 }
 
-details.role-card[open] summary {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 0.8rem;
-    margin-bottom: 0.5rem;
+.verdict-success { color: var(--neon-green); text-shadow: 0 0 8px rgba(0,255,102,0.4); }
+.verdict-neutral { color: var(--neon-yellow); text-shadow: 0 0 8px rgba(255,204,0,0.4); }
+.verdict-fail { color: var(--neon-red); text-shadow: 0 0 8px rgba(255,0,85,0.4); }
+
+.debrief-card {
+    background: #090b0d;
+    border: 1px solid var(--neon-cyan);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.debrief-card h3 {
+    color: var(--neon-cyan);
+    margin-top: 0;
+}
+
+.debrief-card ul {
+    padding-left: 1.2rem;
+    color: var(--text-main);
+}
+
+.debrief-card li {
+    margin-bottom: 0.8rem;
 }
